@@ -1,1 +1,115 @@
-<p>publications works!</p>
+<h1 class="h2" >
+  Publications
+</h1>
+<hr>
+<section class="row mt-5 justify-content-between">
+  <div class="col-md-4 mb-3">
+    <input class="form-control" type="search" [(ngModel)]="textSearch" placeholder="filter by title"  aria-label="Search">
+  </div>
+
+  <div class="col-md-2 mb-3 text-md-right">
+    <button type="button" class="btn btn-primary" (click)="open(createEditForm);clearForm();" >
+      <fa-icon [icon]="faPlus"></fa-icon>
+    </button>
+  </div>
+</section>
+<section class="row">
+  <div class="col-md-12 pt-3">
+    <div class="table-responsive">
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Title</th>
+            <th scope="col-1">Content</th>
+            <th scope="col">Options</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngIf="posts.length == 0" >
+            <td colspan="7">
+              <img src="assets/img/load/arrow.gif" alt="icono de carga" class="animated_animated animated_fadeIn img-fluid icon-load-max mx-auto d-block" >
+            </td>
+          </tr>
+          <tr *ngFor="let item of posts | search:'name':textSearch; let i = index" >
+            <th scope="row">
+              {{item.id}}
+            </th>
+            <td>
+              <strong class="text-capitalize" style="color: #2271b1;font-size: 14px;">
+                {{item.title}}
+              </strong>
+            </td>
+            <td>
+                {{(item.body | slice:0:77)+(item.body.length >= 77 ? '...':'')}}
+            </td>
+            <td>
+              <div class="btn-group">
+                <button type="button" class="btn btn-light btn-sm" title="edit data" (click)="open(createEditForm);addToEdit(item)" >
+                  <fa-icon [icon]="faEdit"></fa-icon>
+                </button>
+                <button class="btn btn-sm btn-danger" (click)="deleteItem(item.id, i)" *ngIf="!loadPage" [disabled]="loadPage"  >
+                  <fa-icon [icon]="faTrash"></fa-icon>
+                </button>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+
+<ng-template #createEditForm let-modal >
+  <div class="modal-header">
+    <h4 class="modal-title" >
+      Create or update
+    </h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <form (ngSubmit)="onSubmit()" [formGroup]="postForm" name="postForm" >
+
+      <div class="form-group mb-3">
+        <label for="title">Title <span class="text-danger">*</span> </label>
+        <input type="text" [ngClass]="{ 'is-invalid': isValid().title.dirty && isValid().title.errors }" class="form-control" id="title" [readonly]="loadPage" formControlName="title"  >
+        <small *ngIf="isValid().title.errors && isValid().title.dirty"  class="form-text text-muted">
+          Campo requerido
+        </small>
+      </div>
+
+
+      <div class="form-group mb-3">
+        <label for="body">Content <span class="text-danger">*</span> </label>
+        <textarea  id="body" [ngClass]="{ 'is-invalid': isValid().body.dirty && isValid().body.errors }" class="form-control"[readonly]="loadPage" formControlName="body" ></textarea>
+
+        <small *ngIf="isValid().body.errors && isValid().body.dirty" class="form-text text-muted">
+          Campo requerido
+        </small>
+      </div>
+
+      <div class="form-group mb-3">
+        <label for="userId">User <span class="text-danger">*</span> </label>
+        <select [ngClass]="{ 'is-invalid': isValid().userId.dirty && isValid().userId.errors }" id="userId" class="form-control"  formControlName="userId" [attr.disabled]="isValid().id.value"  >
+          <option [value]=item.id *ngFor="let item of users" >
+            {{item.name}}
+          </option>
+        </select>
+        <small *ngIf="isValid().userId.errors && isValid().userId.dirty" class="form-text text-muted">
+          Campo requerido
+        </small>
+      </div>
+
+      <div class="w-100 text-right">
+        <button type="submit" class="btn btn-outline-dark" [disabled]="this.postForm.invalid || loadPage" >
+          <fa-icon [icon]="faPaperPlane" class="ml-1"></fa-icon> Save
+        </button>
+      </div>
+    </form>
+  </div>
+  <!-- <div class="modal-footer">
+  </div> -->
+</ng-template>

@@ -1,7 +1,7 @@
+import { ImgFallbackDirective } from './directives/img-fallback.directive';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { DatePipe } from './pipes/date.pipe';
-import { OrderByPipe } from './pipes/order-by.pipe';
 import { SearchPipe } from './pipes/search.pipe';
 
 
@@ -9,13 +9,13 @@ import { SearchPipe } from './pipes/search.pipe';
 @NgModule({
   declarations: [
     DatePipe,
-    OrderByPipe,
     SearchPipe,
+    ImgFallbackDirective
   ],
   exports: [
     DatePipe,
-    OrderByPipe,
     SearchPipe,
+    ImgFallbackDirective
   ],
   imports: [
     CommonModule

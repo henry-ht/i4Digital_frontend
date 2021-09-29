@@ -1,6 +1,6 @@
-import { DateService } from '../services/date.service';
 import { Pipe, PipeTransform } from '@angular/core';
-
+import * as dayjs from 'dayjs';
+import * as relativeTime from 'dayjs/plugin/relativeTime';
 
 
 @Pipe({
@@ -8,17 +8,31 @@ import { Pipe, PipeTransform } from '@angular/core';
 })
 export class DatePipe implements PipeTransform {
 
-  constructor(private date:DateService) { }
+  constructor() {
+    dayjs.extend(relativeTime);
+  }
+
+  fromNow(date:string):string {
+    return dayjs(date).fromNow();
+  }
+
+  format(date:string, format:string):string{
+    return dayjs(date).format(format);
+  }
+
+  getDayjs(){
+    return dayjs;
+  }
 
   transform(value: string, ...args: any[]): string {
     let final = "";
     switch (args[0]) {
       case 'fromNow':
-        final = this.date.fromNow(value);
+        final = this.fromNow(value);
         break;
 
       case 'format':
-          final = this.date.format(value, args[1]);
+          final = this.format(value, args[1]);
           break;
 
       default:

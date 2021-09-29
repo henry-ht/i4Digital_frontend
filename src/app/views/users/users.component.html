@@ -1,1 +1,52 @@
-<p>users works!</p>
+<h1 class="h2">
+  Users
+</h1>
+<section class="row mt-5">
+  <div class="col-md-4 mb-3">
+    <input class="form-control" type="search" [(ngModel)]="textSearch" placeholder="filter by name"  aria-label="Search">
+  </div>
+</section>
+<section class="row">
+  <div class="col-md-12 pt-3">
+    <div class="table-responsive">
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Name</th>
+            <th scope="col-1">email</th>
+            <th scope="col">phone</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngIf="users.length == 0" >
+            <td colspan="7">
+              <img src="assets/img/load/arrow.gif" alt="icono de carga" class="animated_animated animated_fadeIn img-fluid icon-load-max mx-auto d-block" >
+            </td>
+          </tr>
+          <tr *ngFor="let item of users | search:'name':textSearch; let i = index" >
+            <th scope="row">
+              {{item.id}}
+            </th>
+            <td>
+              {{item.name}}
+            </td>
+            <td>
+                {{item.email}}
+            </td>
+            <td>
+              {{item.phone}}
+            </td>
+            <td>
+              <div class="btn-group">
+                <button class="btn btn-sm btn-danger" (click)="deleteItem(i)" *ngIf="!loadPage" [disabled]="loadPage"  >
+                  <fa-icon [icon]="faTrash"></fa-icon>
+                </button>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>

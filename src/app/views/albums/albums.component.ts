@@ -1,4 +1,6 @@
+import { RequestsService } from './../../core/services/request.service';
 import { Component, OnInit } from '@angular/core';
+import { faSort } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-albums',
@@ -7,9 +9,27 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AlbumsComponent implements OnInit {
 
-  constructor() { }
+  faSort = faSort;
+  albums:any = [];
+  loadPage:boolean = false;
+  textSearch:string = '';
+  orderBy:boolean = true;
+  constructor(private http:RequestsService) {
+
+  }
 
   ngOnInit(): void {
+    this.getAlbums();
+  }
+
+  getAlbums(){
+    this.loadPage = true;
+    this.http.get('albums')
+    .subscribe((data:any)=>{
+      this.albums = data;
+    },(error:any)=>{},()=>{
+      this.loadPage = false;
+    })
   }
 
 }

@@ -21,7 +21,7 @@ import { PublicationsComponent } from './publications/publications.component';
     CommonModule,
     CoreModule,
     SharedModule,
-    ViewRoutingModule
+    ViewRoutingModule,
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })

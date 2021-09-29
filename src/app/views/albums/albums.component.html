@@ -1,1 +1,22 @@
-<p>albums works!</p>
+<h1 class="h2" >
+  Albums
+</h1>
+<hr>
+<section class="row mt-5">
+  <div class="col-md-4 mb-3">
+    <input class="form-control" type="search" [(ngModel)]="textSearch" placeholder="filter by title"  aria-label="Search">
+  </div>
+</section>
+<section class="row">
+  <div class="col-md-4 mb-3" *ngFor="let item of albums | search:'title':textSearch; let i = index">
+    <div class="card border-0 shadow-sm" >
+      <img [src]="'https://picsum.photos/id/'+(i+6)+'/900/500'" appImgFallback class="card-img-top" [alt]="item.title" >
+      <div class="card-body">
+        <h5 class="card-title text-capitalize">
+          {{item.title}}
+        </h5>
+        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+      </div>
+    </div>
+  </div>
+</section>

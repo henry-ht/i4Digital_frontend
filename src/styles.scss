@@ -2,3 +2,12 @@
 
 /* Importing Bootstrap SCSS file. */
 @import '~bootstrap/scss/bootstrap';
+@import 'angular-notifier/styles.scss';
+
+.icon-load-mini{
+  width: 1rem;
+}
+
+.icon-load-max{
+  width: 1.5rem;
+}

@@ -1,1 +1,15 @@
-<p>home works!</p>
+<section class="row d-flex justify-content-center">
+  <div class="col-md-10 text-center">
+    <ngb-carousel *ngIf="images">
+      <ng-template ngbSlide *ngFor="let item of images;let i=index">
+        <div class="picsum-img-wrapper">
+          <img [src]="item" alt="Random first slide">
+        </div>
+        <div class="carousel-caption">
+          <h3>{{i+1}} slide label</h3>
+          <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
+        </div>
+      </ng-template>
+    </ngb-carousel>
+  </div>
+</section>

@@ -6,6 +6,8 @@ import { FooterComponent } from './footer/footer.component';
 import { NavBarComponent } from './nav-bar/nav-bar.component';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { HttpClientModule } from '@angular/common/http';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 
 
@@ -22,12 +24,17 @@ import { CommonModule } from '@angular/common';
     NgbModule,
     FontAwesomeModule,
     RouterModule,
+    FormsModule,
+    ReactiveFormsModule,
   ],
   imports: [
     CommonModule,
     NgbModule,
     FontAwesomeModule,
     RouterModule,
+    HttpClientModule,
+    FormsModule,
+    ReactiveFormsModule,
   ]
 })
 export class SharedModule { }
